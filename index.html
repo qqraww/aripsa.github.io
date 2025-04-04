@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIPSA | Документация по аномальным сущностям</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #990000;
+            --secondary-color: #1a1a1a;
+            --text-color: #cccccc;
+            --warning-color: #bf0000;
+            --background-color: #0a0a0a;
+            --card-background: #111111;
+            --border-color: #333333;
+            --highlight-color: #c00000;
+            --terminal-green: #00ff00;
+            --link-color: #990000;
+            --link-hover-color: #ff0000;
+            --header-height: 60px;
+            --terminal-font: 'JetBrains Mono', 'Source Code Pro', monospace;
+            --body-font: 'Source Code Pro', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: var(--body-font);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url('data:image/png;base64,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QRVBj4KtguXBrSFoyOyQrSH355jOkc5pDoVQfujW0Jnjr0YfWSNImXiC3qKnwCmyOaIBImlg3MCn4B/CbSHvYTnhSuFm4WMRdxEjkcwRExFLEXsRbwIvF++FP0MwJNhWwG3g6QFnAWkBgwHPAdwB9wHfAfkCAYIZgjeCPYI3gnkCjoJIgneCfYKDgoWChYKRgpWCnYKlgq2CtYK9gsGCxYLJgs2C0YLVgtmC3YLhguWC6YLtgvGC9YL5gv2CAYMFgwmDDYMRgxWDGYMdgyGDJYMpgy2DMYYvTLec3/fpfCT/kPgq/yl4KfwpSilOKVIpViliKWopcinMKdIp2CneKf4qBioOKhYqHiomKi4qNio+KkYqTipeKmYqbip2Kn4qhiqOKpYqniqmKq4qtirOKtYq3irmKu4q9isGKxYrJis2K0YrVitmK3Yrhi+WL6Yvti/GL9Yv5i/2MAYwFjAmMDYwRjBWMGYwdjCGMJYwpjC2MMYw1jDmMPYxBjEWMSYxNjFGMVYxZjF2MYYxljGmMbYxxjHWMeYx9jIGMhYyJjI2MkYyVjJmMnYyhjKWMqYytjLGMtYy5jL2MwYzFjMmMzYzRjNWM2YzdjOGM5YzpjO2M8Yz1jPmM/Y0BjQWNCY0NjRGNFY0ZjR2NIY0ljSmNLY0wAAIABAAAAAAAAQP+L1+EK/AAAAQAAsAAAAAQABAACACwAAAAAQP+L1+EK/wAAAAEAALAAAAAEAAQAAgAsAEJJTQPtAAAAAAAQAEgAAAABAAIASAAAAAEAAjhCSU0EJgAAAAAADgAAAAAAAAAAAAA/gAAAOEJJTQQNAAAAAAAEAAAAHjhCSU0EGQAAAAAABAAAAB44QklNA/MAAAAAAAkAAAAAAAAAAAEAOEJJTScQAAAAAAAKAAEAAAAAAAAAAjhCSU0D9QAAAAAASAAvZmYAAQBsZmYABgAAAAAAAQAvZmYAAQChmZoABgAAAAAAAQAyAAAAAQBaAAAABgAAAAAAAQA1AAAAAQAtAAAABgAAAAAAAThCSU0D+AAAAAAAcAAA/////////////////////////////wPoAAAAAP////////////////////////////8D6AAAAAD/////////////////////////////A+gAAAAA/////////////////////////////wPoAAA4Qk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VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSIgeG1wOkNyZWF0ZURhdGU9IjIwMjMtMDYtMTlUMTQ6MzM6NTYrMDM6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjMtMDYtMTlUMTQ6MzM6NTYrMDM6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDIzLTA2LTE5VDE0OjMzOjU2KzAzOjAwIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBBMzYxQUY1RjFCODExRURBRDM0QzAzRDI2NUQwQTUzIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBBMzYxQUY2RjFCODExRURBRDM0QzAzRDI2NUQwQTUzIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6MEEzNjFBRjZGMUI4MTFFREFEMzRDMDNEMjY1RDBBNPM0QzAzRDI2NUQwQTUzIiBkYzpmb3JtYXQ9ImltYWdlL2pwZWciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSI+IDx4bXBNTTpIaXN0b3J5PiA8cmRmOlNlcT4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNyZWF0ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6MEEzNjFBRjVGMUI4MTFFREFEMzRDMDNEMjY1RDBBNPA0QzAzRDI2NUQwQTUzIiBzdEV2dDp3aGVuPSIyMDIzLTA2LTE5VDE0OjMzOjU2KzAzOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPD94cGFja2V0IGVuZD0idyI/Pv/iDFhJQ0NfUFJPRklMRQABAQAADEhMaW5vAhAAAG1udHJSR0IgWFlaIAfOAAIACQAGADEAAGFjc3BNU0ZUAAAAAElFQyBzUkdCAAAAAAAAAAAAAAABAAD21gABAAAAANMtSFAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEWNwcnQAAAFQAAAAM2Rrb2wAAAGEAAAA+GJYWVoAAAHUAAAAFGd0blkAAAHoAAAAFGJYWVoAAAH8AAAAFGdYWVoAAAIQAAAAFHJYWVoAAAIkAAAAFHJUUkMAAAI4AAAIDGFhcmcAAAJEAAAAIHZjZ3QAAAJkAAAAMG5kaW4AAAKUAAAAPmNoYWQAAALMAAAALG1tb2QAAALgAAAAKHZjcGwAAAMIAAAAKFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA+EAAC2z3BhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1sdWMAAAAAAAAAAQAAAAxlblVTAAAAIAAAABwARwBvAG8AZwBsAGUAIABJAG4AYwAuACAAMgAwADEANv/bAEMABgQFBgUEBgYFBgcHBggKEAoKCQkKFA4PDBAXFBgYFxQWFhodJR8aGyMcFhYgLCAjJicpKikZHy0wLSgwJSgpKP/bAEMBBwcHCggKEwoKEygaFhooKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKP/AABEIAGQAZAMBIgACEQEDEQH/xAAZAAEBAQEBAQAAAAAAAAAAAAABAAIDBgj/xAAYEAEBAQEBAAAAAAAAAAAAAAAAARECEv/EABgBAQEBAQEAAAAAAAAAAAAAAAEAAgME/8QAGBEBAQEBAQAAAAAAAAAAAAAAAAERAhL/2gAMAwEAAhEDEQA/APAZlZXkeiM9Lnp0gvS56Miz0uelJGelz0pIz0ueikGel56UkZ6MqkjLUrNqzokZUZtWdE1ZUZtWdCaVZVm1Z0TVlRm1Z0SNWVGbVnRI1ZUZVnRIpWVUkaUqCRpSoJFKgkf/2Q==');
+            background-size: 100px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 0;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--highlight-color);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            height: var(--header-height);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-family: var(--terminal-font);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px rgba(153, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .logo-text::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--primary-color);
+            box-shadow: 0 0 10px 1px var(--primary-color);
+        }
+
+        .classified-stamp {
+            margin-left: 15px;
+            font-size: 12px;
+            color: var(--warning-color);
+            border: 1px solid var(--warning-color);
+            padding: 2px 5px;
+            transform: rotate(-5deg);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: var(--primary-color);
+        }
+
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: calc(var(--header-height) + 20px);
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Security Banner */
+        .security-banner {
+            background-color: var(--warning-color);
+            color: #fff;
+            padding: 5px 0;
+            text-align: center;
+            font-family: var(--terminal-font);
+            font-size: 12px;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-banner::before {
+            content: "⚠ ВНИМАНИЕ: ВЫ ПРОСМАТРИВАЕТЕ ЗАСЕКРЕЧЕННЫЕ МАТЕРИАЛЫ ⚠";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            white-space: nowrap;
+            transform: translateY(-50%);
+            animation: scrollText 20s linear infinite;
+        }
+
+        @keyframes scrollText {
+            0% {
+                left: 100%;
+            }
+            100% {
+                left: -100%;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.unsplash.com/photo-1635776062127-d379bfcba9f8?q=80&w=1932&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
+            margin-bottom: 50px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 2px,
+                transparent 2px,
+                transparent 4px
+            );
+            pointer-events: none;
+            z-index: 2;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 100%;
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero h1 {
+            font-family: var(--terminal-font);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            letter-spacing: 5px;
+            text-shadow: 0 0 10px rgba(153, 0, 0, 0.5);
+        }
+
+        .hero .subtitle {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .hero .description {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-family: var(--terminal-font);
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--highlight-color);
+        }
+
+        .cta-button:hover::before {
+            transform: translateX(100%);
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            display: flex;
+            align-items: center;
+            background-color: rgba(153, 0, 0, 0.2);
+            border: 1px solid var(--primary-color);
+            padding: 15px 20px;
+            margin: 20px auto 40px;
+            max-width: 1160px;
+        }
+
+        .alert-icon {
+            color: var(--warning-color);
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .alert-message {
+            flex-grow: 1;
+            font-family: var(--terminal-font);
+            font-size: 14px;
+        }
+
+        .alert-close {
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 80px;
+        }
+
+        section h2 {
+            font-family: var(--terminal-font);
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        section h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 1px;
+            background-color: var(--primary-color);
+            box-shadow: 0 0 5px var(--primary-color);
+        }
+
+        /* Document Cards */
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .document-card {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .document-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .document-id {
+            font-family: var(--terminal-font);
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .document-level {
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .level-safe {
+            background-color: rgba(0, 128, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+
+        .level-euclid {
+            background-color: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+            border: 1px solid #ffa500;
+        }
+
+        .level-keter {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+            border: 1px solid #ff0000;
+        }
+
+        .level-thaumiel {
+            background-color: rgba(128, 0, 128, 0.2);
+            color: #800080;
+            border: 1px solid #800080;
+        }
+
+        .document-title {
+            font-family: var(--terminal-font);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .document-description {
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .document-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(204, 204, 204, 0.7);
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .document-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .document-tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            background-color: rgba(153, 0, 0, 0.2);
+            border: 1px solid var(--primary-color);
+        }
+
+        /* Backrooms Section */
+        .backrooms-intro {
+            margin-bottom: 30px;
+        }
+
+        .backrooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .backroom-level {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .backroom-level:hover {
+            transform: translateY(-5px);
+        }
+
+        .level-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .level-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 2px,
+                transparent 2px,
+                transparent 4px
+            );
+            pointer-events: none;
+        }
+
+        .level-0 {
+            background-image: url('https://images.unsplash.com/photo-1635776062127-d379bfcba9f8?q=80&w=1932&auto=format&fit=crop');
+        }
+
+        .level-1 {
+            background-image: url('https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?q=80&w=2070&auto=format&fit=crop');
+        }
+
+        .level-2 {
+            background-image: url('https://images.unsplash.com/photo-1501084291732-13b1ba8f0ebc?q=80&w=2070&auto=format&fit=crop');
+        }
+
+        .level-info {
+            padding: 20px;
+        }
+
+        .level-info h3 {
+            font-family: var(--terminal-font);
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .level-info p {
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .level-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 13px;
+            color: rgba(204, 204, 204, 0.7);
+        }
+
+        .level-stats span {
+            display: flex;
+            align-items: center;
+        }
+
+        .level-stats i {
+            width: 20px;
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+
+        /* Anomalies Section */
+        .anomalies-intro {
+            margin-bottom: 30px;
+        }
+
+        .anomalies-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+        }
+
+        .category i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .category h3 {
+            font-family: var(--terminal-font);
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .category p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .anomaly-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .anomaly-card {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .anomaly-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .anomaly-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+
+        .anomaly-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .anomaly-id {
+            font-family: var(--terminal-font);
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .anomaly-date {
+            font-size: 12px;
+            color: rgba(204, 204, 204, 0.7);
+        }
+
+        .anomaly-card h4 {
+            font-family: var(--terminal-font);
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .anomaly-card p {
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .anomaly-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: rgba(204, 204, 204, 0.7);
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .more-button {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s;
+        }
+
+        .more-button:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .more-button i {
+            margin-left: 5px;
+        }
+
+        /* Survival Section */
+        .survival-intro {
+            margin-bottom: 30px;
+        }
+
+        .survival-tabs {
+            margin-top: 30px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: none;
+            cursor: pointer;
+            font-family: var(--terminal-font);
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .tab-button:hover {
+            color: var(--primary-color);
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .tab-content {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .tab-pane h3 {
+            font-family: var(--terminal-font);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .survival-rules {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .rule {
+            display: flex;
+            gap: 20px;
+        }
+
+        .rule-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(153, 0, 0, 0.2);
+            border: 1px solid var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .rule-icon i {
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+
+        .rule-text h4 {
+            font-family: var(--terminal-font);
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .rule-text p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .protocol-steps {
+            counter-reset: step;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--terminal-font);
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-family: var(--terminal-font);
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .step-content p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .kit-intro {
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .kit-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kit-item {
+            display: flex;
+            gap: 15px;
+            background-color: rgba(26, 26, 26, 0.5);
+            padding: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(153, 0, 0, 0.2);
+            border: 1px solid var(--primary-color);
+            flex-shrink: 0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .compass {
+            background-image: url('https://images.unsplash.com/photo-1533219057257-4bb9ed5d2cc6?q=80&w=1974&auto=format&fit=crop');
+        }
+
+        .detector {
+            background-image: url('https://images.unsplash.com/photo-1581093196277-9f6e9b8e0363?q=80&w=1780&auto=format&fit=crop');
+        }
+
+        .almond {
+            background-image: url('https://images.unsplash.com/photo-1613769049987-b31b641f25b1?q=80&w=1767&auto=format&fit=crop');
+        }
+
+        .markers {
+            background-image: url('https://images.unsplash.com/photo-1517971053567-8bde93bc6a58?q=80&w=2034&auto=format&fit=crop');
+        }
+
+        .radio {
+            background-image: url('https://images.unsplash.com/photo-1563219996-35e5365c27e7?q=80&w=1974&auto=format&fit=crop');
+        }
+
+        .item-info h4 {
+            font-family: var(--terminal-font);
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .item-info p {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .kit-order {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .kit-order p {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .kit-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-family: var(--terminal-font);
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .kit-button:hover {
+            background-color: var(--highlight-color);
+        }
+
+        /* Inventions Section */
+        .inventions-intro {
+            margin-bottom: 30px;
+        }
+
+        .inventions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .invention {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .invention:hover {
+            transform: translateY(-5px);
+        }
+
+        .invention-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .invention-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 2px,
+                transparent 2px,
+                transparent 4px
+            );
+            pointer-events: none;
+        }
+
+        .generator {
+            background-image: url('https://images.unsplash.com/photo-1580584126903-c17d41830450?q=80&w=1839&auto=format&fit=crop');
+        }
+
+        .stabilizer {
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop');
+        }
+
+        .serum {
+            background-image: url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=2080&auto=format&fit=crop');
+        }
+
+        .scanner {
+            background-image: url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=2070&auto=format&fit=crop');
+        }
+
+        .invention-content {
+            padding: 20px;
+        }
+
+        .invention-content h3 {
+            font-family: var(--terminal-font);
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .invention-content p {
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .tech-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            font-size: 13px;
+            color: rgba(204, 204, 204, 0.7);
+            margin-bottom: 15px;
+        }
+
+        .tech-specs span {
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-specs i {
+            width: 20px;
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+
+        .invention-status {
+            margin-top: 15px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+
+        .status-badge.prototype {
+            background-color: rgba(0, 128, 255, 0.2);
+            color: #0080ff;
+            border: 1px solid #0080ff;
+        }
+
+        .status-badge.testing {
+            background-color: rgba(255, 165, 0, 0.2);
+            color: #ffa500;
+            border: 1px solid #ffa500;
+        }
+
+        .status-badge.available {
+            background-color: rgba(0, 128, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 50px 0 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo .logo-text {
+            margin-bottom: 15px;
+        }
+
+        .footer-logo p {
+            font-size: 14px;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .footer-warning {
+            font-size: 12px;
+            color: var(--warning-color);
+            padding: 10px;
+            border: 1px solid var(--warning-color);
+            max-width: 300px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-column {
+            min-width: 150px;
+        }
+
+        .footer-column h3 {
+            font-family: var(--terminal-font);
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 30px;
+            height: 1px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-legal a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.3s;
+        }
+
+        .footer-legal a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Terminal Section */
+        .terminal-section {
+            margin-bottom: 50px;
+        }
+
+        .terminal {
+            background-color: #000;
+            border: 1px solid var(--primary-color);
+            padding: 20px;
+            font-family: var(--terminal-font);
+            font-size: 14px;
+            color: var(--terminal-green);
+            line-height: 1.5;
+            max-height: 400px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .terminal::before {
+            content: "ARIPSA TERMINAL v3.7.2";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--primary-color);
+            color: #000;
+            padding: 5px 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .terminal-content {
+            margin-top: 30px;
+        }
+
+        .command-line {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .prompt {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        .command {
+            flex-grow: 1;
+        }
+
+        .response {
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+        }
+
+        .blinking-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: var(--terminal-green);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                background-color: var(--terminal-green);
+            }
+            50% {
+                background-color: transparent;
+            }
+        }
+
+        /* Warning Popups */
+        .warning-popup {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: rgba(10, 10, 10, 0.9);
+            border: 1px solid var(--warning-color);
+            padding: 20px;
+            width: 300px;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        .warning-popup.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .warning-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .warning-title {
+            font-family: var(--terminal-font);
+            font-size: 1rem;
+            color: var(--warning-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .warning-title i {
+            margin-right: 8px;
+        }
+
+        .warning-close {
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        .warning-message {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .warning-footer {
+            text-align: right;
+        }
+
+        .warning-button {
+            background-color: var(--warning-color);
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            font-family: var(--terminal-font);
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .warning-button:hover {
+            background-color: #ff0000;
+        }
+
+        /* Emergency Button */
+        .emergency-button {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--warning-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-family: var(--terminal-font);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 0 10px rgba(153, 0, 0, 0.5);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .emergency-button:hover {
+            background-color: #ff0000;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .document-grid, .backrooms-grid, .anomalies-categories, .anomaly-cards, .inventions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            .footer-logo {
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+            }
+
+            .footer-column {
+                flex: 1;
+                min-width: 150px;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .document-grid, .backrooms-grid, .anomalies-categories, .anomaly-cards, .inventions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .hero .description {
+                font-size: 1rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .mobile-menu-open nav ul {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background-color: var(--secondary-color);
+                padding: 20px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .mobile-menu-open nav ul li {
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .rule, .step {
+                flex-direction: column;
+            }
+
+            .rule-icon, .step-number {
+                margin-bottom: 10px;
+            }
+
+            .kit-item {
+                flex-direction: column;
+            }
+
+            .item-image {
+                width: 100%;
+                height: 100px;
+                margin-bottom: 15px;
+            }
+
+            .footer-legal {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+
+        /* Animations */
+        .glitch {
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            14% {
+                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            15% {
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            49% {
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            50% {
+                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            99% {
+                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+            100% {
+                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+        }
+
+        /* Additional Styles for SCP Look */
+        .document-classified {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            transform: rotate(20deg);
+            color: var(--warning-color);
+            font-family: var(--terminal-font);
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: 2px solid var(--warning-color);
+            padding: 5px 10px;
+            opacity: 0.8;
+        }
+
+        .redacted {
+            background-color: #000;
+            color: transparent;
+            user-select: none;
+            position: relative;
+            display: inline-block;
+        }
+
+        .redacted:hover {
+            background-color: transparent;
+            color: var(--text-color);
+        }
+
+        .terminal-line {
+            display: none;
+        }
+
+        .terminal-line.visible {
+            display: block;
+            animation: typingEffect 0.05s steps(1) forwards;
+        }
+
+        @keyframes typingEffect {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .vhs-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background: repeating-linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0) 0,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0) 100%
+            );
+            background-size: 100% 4px;
+            animation: vhsEffect 10s linear infinite;
+        }
+
+        @keyframes vhsEffect {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="vhs-effect"></div>
+
+    <header>
+        <div class="logo">
+            <span class="logo-text">ARIPSA</span>
+            <span class="classified-stamp">Секретно</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home" class="active">Главная</a></li>
+                <li><a href="#documents">Документация</a></li>
+                <li><a href="#backrooms">Бекрумы</a></li>
+                <li><a href="#anomalies">Аномалии</a></li>
+                <li><a href="#survival">Выживание</a></li>
+                <li><a href="#research">Исследования</a></li>
+            </ul>
+        </nav>
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
+
+    <div class="security-banner"></div>
+
+    <div class="main-content">
+        <div class="hero" id="home">
+            <div class="hero-content">
+                <h1 class="glitch">ARIPSA</h1>
+                <p class="subtitle">Агентство Расследования и Изучения Паранормальных и Сверхъестественных Аномалий</p>
+                <p class="description">Документируем и контролируем аномальные явления, бекрумы и их влияние на нашу реальность для обеспечения безопасности человечества</p>
+                <a href="#documents" class="cta-button">Получить доступ к документам</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="alert-banner">
+                <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="alert-message">ВНИМАНИЕ: Зафиксирована критическая аномальная активность в секторе B-7. Всему персоналу уровня допуска 3+ немедленно явиться в зону содержания для инструктажа.</div>
+                <div class="alert-close"><i class="fas fa-times"></i></div>
+            </div>
+
+            <section class="terminal-section">
+                <div class="terminal">
+                    <div class="terminal-content">
+                        <div class="command-line">
+                            <span class="prompt">root@aripsa:~$</span>
+                            <span class="command">login --auth-level=4 --secure</span>
+                        </div>
+                        <div class="response terminal-line visible">Авторизация...</div>
+                        <div class="response terminal-line visible">Проверка биометрических данных...</div>
+                        <div class="response terminal-line visible">Доступ разрешен. Добро пожаловать, Исследователь.</div>
+                        <div class="command-line">
+                            <span class="prompt">researcher@aripsa:~$</span>
+                            <span class="command">status --anomaly-sectors</span>
+                        </div>
+                        <div class="response terminal-line visible">
+Сектор A: СТАБИЛЕН
+Сектор B: КРИТИЧЕСКАЯ АКТИВНОСТЬ [координаты: 47.112, -118.765]
+Сектор C: СТАБИЛЕН
+Сектор D: УМЕРЕННАЯ АКТИВНОСТЬ [координаты: 41.304, -72.932]
+Сектор E: СТАБИЛЕН</div>
+                        <div class="command-line">
+                            <span class="prompt">researcher@aripsa:~$</span>
+                            <span class="command">query --entity="Смотрящий" --status</span>
+                        </div>
+                        <div class="response terminal-line visible">
+ВНИМАНИЕ: Объект "Смотрящий" находится под наблюдением.
+Последнее проявление: 17.06.2023 03:42 [координаты: 47.112, -118.765]
+Уровень угрозы: ВЫСОКИЙ
+Рекомендации: Избегать визуального контакта. Использовать протокол сдерживания K-117.</div>
+                        <div class="command-line">
+                            <span class="prompt">researcher@aripsa:~$</span>
+                            <span class="command">access --backrooms-map --level=recent</span>
+                        </div>
+                        <div class="response terminal-line visible">Загрузка карты бекрумов...</div>
+                        <div class="response terminal-line visible">
+Обнаружены новые уровни:
+- Уровень 143: "Бесконечная библиотека" [статус: документирован]
+- Уровень 217: "Зеркальный лабиринт" [статус: активное исследование]
+- Уровень 355: "Красная комната" [статус: ОПАСНО - доступ ограничен]</div>
+                        <div class="command-line">
+                            <span class="prompt">researcher@aripsa:~$</span>
+                            <span class="command">logout</span>
+                        </div>
+                        <div class="response terminal-line visible">Выход из системы... Не забудьте очистить память терминала.</div>
+                        <div class="command-line">
+                            <span class="prompt">root@aripsa:~$</span>
+                            <span class="command"><span class="blinking-cursor"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="documents">
+                <h2>Документация по аномальным объектам</h2>
+                <p>Все документы классифицированы по уровням опасности. Несанкционированный доступ к материалам строго запрещен и преследуется по протоколу безопасности ARIPSA-7.</p>
+                
+                <div class="document-grid">
+                    <div class="document-card">
+                        <div class="document-header">
+                            <span class="document-id">ARIPSA-173</span>
+                            <span class="document-level level-keter">Кетер</span>
+                        </div>
+                        <div class="document-classified">Совершенно секретно</div>
+                        <h3 class="document-title">Смотрящий</h3>
+                        <div class="document-description">
+                            <p>Гуманоидная сущность высотой 2,3 м. Способна перемещаться только когда не находится в прямом поле зрения. Скорость перемещения — до <span class="redacted">██ м/с</span>. Мотивация неизвестна, однако проявляет агрессию к людям, <span class="redacted">██████████ шею жертвам</span>.</p>
+                            <p>Первое зафиксированное появление: <span class="redacted">██.██.████</span> в заброшенной психиатрической клинике <span class="redacted">██████</span>.</p>
+                        </div>
+                        <div class="document-footer">
+                            <span>Последнее обновление: 17.06.2023</span>
+                            <span>Исследователь: D. Черных</span>
+                        </div>
+                        <div class="document-tags">
+                            <span class="document-tag">Сущность</span>
+                            <span class="document-tag">Кинетический</span>
+                            <span class="document-tag">Смертельный</span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-card">
+                        <div class="document-header">
+                            <span class="document-id">ARIPSA-096</span>
+                            <span class="document-level level-euclid">Евклид</span>
+                        </div>
+                        <h3 class="document-title">Плачущее лицо</h3>
+                        <div class="document-description">
+                            <p>Аномальное явление, проявляющееся в виде человеческого лица, видимого только в периферическом зрении. При попытке сфокусировать взгляд на лице, оно исчезает. Фиксируется на записывающих устройствах.</p>
+                            <p>Субъекты, наблюдавшие явление более <span class="redacted">██ минут</span>, сообщают о звуке плача и нарастающем чувстве тревоги. В <span class="redacted">██%</span> случаев наблюдается временная потеря памяти.</p>
+                        </div>
+                        <div class="document-footer">
+                            <span>Последнее обновление: 03.05.2023</span>
+                            <span>Исследователь: А. Корнеева</span>
+                        </div>
+                        <div class="document-tags">
+                            <span class="document-tag">Визуальный</span>
+                            <span class="document-tag">Психологический</span>
+                            <span class="document-tag">Непостоянный</span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-card">
+                        <div class="document-header">
+                            <span class="document-id">ARIPSA-914</span>
+                            <span class="document-level level-safe">Безопасный</span>
+                        </div>
+                        <h3 class="document-title">Преобразователь</h3>
+                        <div class="document-description">
+                            <p>Устройство неизвестного происхождения, внешне напоминающее старинный граммофон. При помещении любого предмета на диск и активации, трансформирует его в другой объект, сохраняя приблизительную массу.</p>
+                            <p>Трансформация подчиняется определенной логике, которую до конца не удалось расшифровать. Органические материалы преобразуются в <span class="redacted">███████████</span> с сохранением некоторых исходных свойств.</p>
+                        </div>
+                        <div class="document-footer">
+                            <span>Последнее обновление: 21.04.2023</span>
+                            <span>Исследователь: В. Михайлов</span>
+                        </div>
+                        <div class="document-tags">
+                            <span class="document-tag">Артефакт</span>
+                            <span class="document-tag">Трансмутация</span>
+                            <span class="document-tag">Исследуемый</span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-card">
+                        <div class="document-header">
+                            <span class="document-id">ARIPSA-1123</span>
+                            <span class="document-level level-thaumiel">Таумиэль</span>
+                        </div>
+                        <div class="document-classified">Совершенно секретно</div>
+                        <h3 class="document-title">Стабилизатор реальности</h3>
+                        <div class="document-description">
+                            <p>Артефакт, обнаруженный в <span class="redacted">█████████</span> в 1983 году. Представляет собой металлический куб с гравировкой на неизвестном языке. Излучает слабое электромагнитное поле с частотой <span class="redacted">████ Гц</span>.</p>
+                            <p>Основное свойство: подавление проявлений других аномалий в радиусе до <span class="redacted">██ км</span>. Используется для стабилизации зон с высокой аномальной активностью и предотвращения возникновения порталов в бекрумы.</p>
+                        </div>
+                        <div class="document-footer">
+                            <span>Последнее обновление: 11.03.2023</span>
+                            <span>Исследователь: <span class="redacted">█. ████████</span></span>
+                        </div>
+                        <div class="document-tags">
+                            <span class="document-tag">Артефакт</span>
+                            <span class="document-tag">Стабилизатор</span>
+                            <span class="document-tag">Критичный</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="backrooms" class="backrooms">
+                <h2>Бекрумы: классифицированные данные</h2>
+                <div class="backrooms-intro">
+                    <p>Бекрумы — система непространственных измерений, существующих параллельно нашей реальности. Попадание в них происходит через случайные разрывы в ткани реальности, часто в местах с высокой аномальной активностью. Все уровни бекрумов реальны и представляют потенциальную опасность.</p>
+                </div>
+
+                <div class="backrooms-grid">
+                    <div class="backroom-level">
+                        <div class="level-image level-0"></div>
+                        <div class="level-info">
+                            <h3>Уровень 0: Лимбо</h3>
+                            <p>Бесконечные желтые комнаты с гудящими люминесцентными лампами и влажным ковролином. Типичная точка входа для большинства попавших в бекрумы. Монотонность пространства вызывает дезориентацию и психологический дискомфорт.</p>
+                            <div class="level-stats">
+                                <span><i class="fas fa-skull"></i> Опасность: 2/5</span>
+                                <span><i class="fas fa-ghost"></i> Сущности: Гончие, Мерцающие</span>
+                                <span><i class="fas fa-door-open"></i> Известные выходы: Уровни 1, 19, 37</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="backroom-level">
+                        <div class="level-image level-1"></div>
+                        <div class="level-info">
+                            <h3>Уровень 1: Подвалы</h3>
+                            <p>Темные бетонные коридоры с трубами и слабым освещением. Пространство нестабильно — коридоры могут изменять свою длину и конфигурацию. Зафиксированы случаи временных петель, когда субъекты проходили один и тот же участок многократно.</p>
+                            <div class="level-stats">
+                                <span><i class="fas fa-skull"></i> Опасность: 3/5</span>
+                                <span><i class="fas fa-ghost"></i> Сущности: Улыбающиеся, Шептуны</span>
+                                <span><i class="fas fa-door-open"></i> Известные выходы: Уровни 0, 2, 5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="backroom-level">
+                        <div class="level-image level-2"></div>
+                        <div class="level-info">
+                            <h3>Уровень 2: Трубы</h3>
+                            <p>Промышленный лабиринт из труб, обслуживающих помещений и узлов. Постоянный шум работающих механизмов. Температура воздуха достигает 40°C. Обнаружены поселения людей, адаптировавшихся к жизни на этом уровне.</p>
+                            <div class="level-stats">
+                                <span><i class="fas fa-skull"></i> Опасность: 4/5</span>
+                                <span><i class="fas fa-ghost"></i> Сущности: Безликие, Ползуны, <span class="redacted">█████</span></span>
+                                <span><i class="fas fa-door-open"></i> Известные выходы: Уровни 1, 3, 6, <span class="redacted">██</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="terminal" style="margin-top: 40px;">
+                    <div class="terminal-content">
+                        <div class="command-line">
+                            <span class="prompt">researcher@aripsa:~$</span>
+                            <span class="command">access --backrooms-report --recent</span>
+                        </div>
+                        <div class="response terminal-line visible">
+ОТЧЕТ ОБ ИССЛЕДОВАНИИ БЕКРУМОВ
+Дата: 14.06.2023
+Команда: Исследовательская группа "Дельта-7"
+
+Исследованный уровень: 143 "Бесконечная библиотека"
+
+Описание: Обширное пространство, заполненное книжными полками, уходящими в бесконечность как по горизонтали, так и по вертикали. Книги содержат текст на различных языках, включая неизвестные человечеству. Некоторые тома содержат информацию о будущих событиях или альтернативных реальностях.
+
+Обнаруженные сущности: "Библиотекари" — гуманоидные существа ростом около 2,5 метров с непропорционально длинными конечностями. Не проявляют агрессии, если не нарушать тишину или не пытаться вынести книги за пределы уровня.
+
+Найденные артефакты: 
+- "Хроники забытого" — книга, меняющая содержание при каждом прочтении
+- <span class="redacted">████████████████</span>
+
+Потери: Исследователь Марков К.И. — пропал без вести после контакта с <span class="redacted">██████████████████████</span>
+
+Рекомендации: Присвоить уровню опасности "Евклид". Продолжить исследование с соблюдением протокола тишины. Установить наблюдательный пост для долгосрочного изучения.</div>
+                        <div class="command-line">
+                            <span class="prompt">researcher@aripsa:~$</span>
+                            <span class="command"></span>
+                            <span class="blinking-cursor"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="anomalies" class="anomalies">
+                <h2>Аномальные явления и сущности</h2>
+                <div class="anomalies-intro">
+                    <p>ARIPSA классифицирует аномалии на основе их происхождения, механизма действия и уровня опасности. Все аномалии реальны и требуют соответствующих протоколов взаимодействия. Несоблюдение протоколов может привести к летальному исходу или необратимым последствиям.</p>
+                </div>
+
+                <div class="anomalies-categories">
+                    <div class="category">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Электромагнитные</h3>
+                        <p>Аномалии, искажающие электромагнитные поля и влияющие на работу электронных устройств. Часто являются первыми признаками формирования портала в бекрумы.</p>
+                    </div>
+
+                    <div class="category">
+                        <i class="fas fa-clock"></i>
+                        <h3>Темпоральные</h3>
+                        <p>Искажения времени, временные петли и другие явления, нарушающие линейное течение времени. Могут создавать локальные области с измененной скоростью времени.</p>
+                    </div>
+
+                    <div class="category">
+                        <i class="fas fa-cube"></i>
+                        <h3>Пространственные</h3>
+                        <p>Нарушения законов эвклидовой геометрии, создание невозможных пространств, неестественные искривления физического мира. Включают порталы в бекрумы.</p>
+                    </div>
+
+                    <div class="category">
+                        <i class="fas fa-brain"></i>
+                        <h3>Когнитивные</h3>
+                        <p>Аномалии, воздействующие на сознание, восприятие и психику. Могут вызывать галлюцинации, амнезию, изменение личности или внушение идей.</p>
+                    </div>
+                </div>
+
+                <h3>Недавно зафиксированные аномалии</h3>
+                <div class="anomaly-cards">
+                    <div class="anomaly-card">
+                        <div class="anomaly-header">
+                            <span class="anomaly-id">AN-2023-089</span>
+                            <span class="anomaly-date">17.06.2023</span>
+                        </div>
+                        <h4>Поющий лес</h4>
+                        <p>Лесной массив площадью около 3 км² в северной Сибири, где деревья издают звуки, напоминающие человеческое пение на неизвестном языке. Спектральный анализ показал, что звуки не являются результатом движения ветра, деятельности насекомых или других естественных причин.</p>
+                        <p>Лица, находившиеся в зоне аномалии более 4 часов, сообщают о появлении непреодолимого желания идти в центр леса, где находится <span class="redacted">█████████████</span>. Трое исследователей пропали без вести.</p>
+                        <div class="anomaly-footer">
+                            <span class="anomaly-type">Тип: Акустическая/Когнитивная</span>
+                            <span class="anomaly-status">Статус: Активна</span>
+                        </div>
+                    </div>
+
+                    <div class="anomaly-card">
+                        <div class="anomaly-header">
+                            <span class="anomaly-id">AN-2023-088</span>
+                            <span class="anomaly-date">12.06.2023</span>
+                        </div>
+                        <h4>Зеркальная комната</h4>
+                        <p>Помещение в заброшенном здании бывшего НИИ, где отражения в зеркалах двигаются с задержкой в 3-5 секунд после действий отражаемого объекта. В некоторых случаях отражения совершают действия, которых не выполнял оригинал.</p>
+                        <p>Исследователь Петров И.С. сообщил, что его отражение <span class="redacted">█████████████████████████████</span>, после чего он потерял сознание. При медицинском обследовании обнаружены необъяснимые изменения в структуре ДНК.</p>
+                        <div class="anomaly-footer">
+                            <span class="anomaly-type">Тип: Оптическая/Пространственная</span>
+                            <span class="anomaly-status">Статус: Под наблюдением</span>
+                        </div>
+                    </div>
+
+                    <div class="anomaly-card">
+                        <div class="anomaly-header">
+                            <span class="anomaly-id">AN-2023-087</span>
+                            <span class="anomaly-date">05.06.2023</span>
+                        </div>
+                        <h4>Искажающий перекресток</h4>
+                        <p>Дорожный перекресток в пригороде Москвы, на котором водители и пешеходы регулярно сообщают о внезапной дезориентации и ощущении, что они уже проходили этот участок много раз. Анализ камер наблюдения показал, что некоторые автомобили проезжают перекресток до 7 раз подряд, не осознавая этого.</p>
+                        <p>Установка <span class="redacted">█████████████</span> частично нейтрализовала аномалию, сократив частоту темпоральных петель на 73%. Продолжается мониторинг ситуации.</p>
+                        <div class="anomaly-footer">
+                            <span class="anomaly-type">Тип: Темпоральная</span>
+                            <span class="anomaly-status">Статус: Частично нейтрализована</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="survival" class="survival">
+                <h2>Протоколы выживания</h2>
+                <div class="survival-intro">
+                    <p>На основе данных, полученных от выживших после контакта с аномалиями и бекрумами, ARIPSA разработала комплексные протоколы выживания. Эта информация может спасти вашу жизнь при столкновении с неизвестным.</p>
+                </div>
+
+                <div class="survival-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="backrooms-survival">В бекрумах</button>
+                        <button class="tab-button" data-tab="anomaly-encounter">При встрече с аномалией</button>
+                        <button class="tab-button" data-tab="emergency-kit">Аварийный комплект</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="backrooms-survival">
+                            <h3>Протокол выживания в бекрумах</h3>
+                            <div class="survival-rules">
+                                <div class="rule">
+                                    <div class="rule-icon"><i class="fas fa-volume-mute"></i></div>
+                                    <div class="rule-text">
+                                        <h4>Соблюдайте тишину</h4>
+                                        <p>Большинство сущностей в бекрумах реагируют на звук. Передвигайтесь максимально тихо, избегайте разговоров. При необходимости общения используйте шепот или жесты. Звуковые приманки можно использовать для отвлечения внимания сущностей, но только в критических ситуациях.</p>
+                                    </div>
+                                </div>
+
+                                <div class="rule">
+                                    <div class="rule-icon"><i class="fas fa-lightbulb"></i></div>
+                                    <div class="rule-text">
+                                        <h4>Экономьте источники света</h4>
+                                        <p>Яркий свет привлекает внимание большинства сущностей и быстро расходует ресурсы. Используйте свет только при необходимости и предпочитайте красный спектр — он менее заметен для большинства обитателей бекрумов и лучше сохраняет ночное зрение.</p>
+                                    </div>
+                                </div>
+
+                                <div class="rule">
+                                    <div class="rule-icon"><i class="fas fa-map-marked-alt"></i></div>
+                                    <div class="rule-text">
+                                        <h4>Создавайте систему навигации</h4>
+                                        <p>Используйте метод "нитей Ариадны" — оставляйте метки на пройденных участках. Помните, что геометрия бекрумов нестабильна, поэтому регулярно проверяйте маршрут и обновляйте карту. Маркеры должны быть незаметны для сущностей — используйте УФ-маркеры или тактильные метки.</p>
+                                    </div>
+                                </div>
+
+                                <div class="rule">
+                                    <div class="rule-icon"><i class="fas fa-tint"></i></div>
+                                    <div class="rule-text">
+                                        <h4>Питание и вода</h4>
+                                        <p>Не употребляйте жидкости или пищу неизвестного происхождения. На некоторых уровнях (0, 4, 6, 11) существуют безопасные источники миндальной воды — она поддерживает когнитивные функции и защищает от ментального воздействия. Предпочтительно использовать только принесенные с собой запасы.</p>
+                                    </div>
+                                </div>
+
+                                <div class="rule">
+                                    <div class="rule-icon"><i class="fas fa-users"></i></div>
+                                    <div class="rule-text">
+                                        <h4>Осторожность при контактах</h4>
+                                        <p>Некоторые сущности могут имитировать человеческий облик и поведение. Всегда проверяйте новых встречных с помощью тестов ARIPSA: задавайте вопросы, ответы на которые знаете только вы; наблюдайте за нарушениями в движениях и речи; проверяйте отражение в зеркальных поверхностях.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="rule">
+                                    <div class="rule-icon"><i class="fas fa-brain"></i></div>
+                                    <div class="rule-text">
+                                        <h4>Сохраняйте ментальную стабильность</h4>
+                                        <p>Бекрумы оказывают сильное психологическое воздействие. Используйте техники заземления: регулярно проводите проверку реальности, считайте до 10, фокусируйтесь на тактильных ощущениях. При наличии — принимайте сыворотку когнитивной защиты каждые 6 часов для предотвращения галлюцинаций и паники.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="anomaly-encounter">
+                            <h3>Протокол при обнаружении аномалии</h3>
+                            <div class="protocol-steps">
+                                <div class="step">
+                                    <span class="step-number">1</span>
+                                    <div class="step-content">
+                                        <h4>Сохраняйте дистанцию</h4>
+                                        <p>При обнаружении признаков аномалии немедленно остановитесь и оцените ситуацию. Не приближайтесь к аномалии и не взаимодействуйте с ней физически. Оптимальная безопасная дистанция — не менее 10 метров для неклассифицированных аномалий.</p>
+                                    </div>
+                                </div>
+
+                                <div class="step">
+                                    <span class="step-number">2</span>
+                                    <div class="step-content">
+                                        <h4>Документируйте наблюдения</h4>
+                                        <p>Если это безопасно, сделайте фотографии или видеозапись аномалии с безопасного расстояния. Запишите все наблюдения: визуальные характеристики, звуки, запахи, изменения температуры, влияние на окружающую среду и электронные устройства. Используйте диктофон для голосовых заметок.</p>
+                                    </div>
+                                </div>
+
+                                <div class="step">
+                                    <span class="step-number">3</span>
+                                    <div class="step-content">
+                                        <h4>Проверьте оборудование и себя</h4>
+                                        <p>Многие аномалии влияют на электронные устройства и человеческое сознание. Если ваши приборы начинают сбоить, компас показывает странные направления, часы идут неправильно, или вы испытываете необъяснимые эмоции, головокружение, галлюцинации — немедленно покиньте зону.</p>
+                                    </div>
+                                </div>
+
+                                <div class="step">
+                                    <span class="step-number">4</span>
+                                    <div class="step-content">
+                                        <h4>Используйте защитное снаряжение</h4>
+                                        <p>При наличии аварийного комплекта ARIPSA активируйте детектор реальности для определения типа аномалии. Используйте защитные очки с фильтрами при визуальных аномалиях, маску с фильтром при аномалиях, влияющих на воздух. При когнитивных аномалиях примите сыворотку защиты (красная ампула в комплекте).</p>
+                                    </div>
+                                </div>
+
+                                <div class="step">
+                                    <span class="step-number">5</span>
+                                    <div class="step-content">
+                                        <h4>Эвакуация и отчет</h4>
+                                        <p>Покиньте зону аномалии кратчайшим безопасным путем, двигаясь перпендикулярно направлению к центру аномалии. После эвакуации проведите самодиагностику на наличие когнитивных или физических изменений. Как можно скорее передайте информацию в ARIPSA через защищенный канал связи (код частоты: <span class="redacted">████</span>).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="emergency-kit">
+                            <h3>Аварийный комплект ARIPSA</h3>
+                            <p class="kit-intro">Специальный комплект оборудования и препаратов, разработанный для выживания при столкновении с аномалиями и бекрумами. Все компоненты прошли полевые испытания и доказали свою эффективность. Комплекты выдаются исследователям ARIPSA и гражданским лицам в зонах повышенного риска.</p>
+
+                            <div class="kit-items">
+                                <div class="kit-item">
+                                    <div class="item-image compass"></div>
+                                    <div class="item-info">
+                                        <h4>Немагнитный компас реальности</h4>
+                                        <p>Работает в условиях искаженных магнитных полей и пространственных аномалий. Стрелка всегда указывает на ближайшую точку выхода из аномальной зоны или портала в бекрумах. Работает на квантовой запутанности частиц.</p>
+                                    </div>
+                                </div>
+
+                                <div class="kit-item">
+                                    <div class="item-image detector"></div>
+                                    <div class="item-info">
+                                        <h4>Детектор реальности "Спектр-7"</h4>
+                                        <p>Устройство для определения уровня искажения реальности в окружающем пространстве. Сканирует 7 различных параметров физической реальности, включая темпоральную стабильность. Звуковой сигнал предупреждает о приближении к порталам в бекрумы.</p>
+                                    </div>
+                                </div>
+
+                                <div class="kit-item">
+                                    <div class="item-image almond"></div>
+                                    <div class="item-info">
+                                        <h4>Миндальная вода</h4>
+                                        <p>Специальный раствор, стабилизирующий когнитивные функции при воздействии ментальных аномалий. Предотвращает галлюцинации, панические атаки и потерю памяти. Содержит <span class="redacted">█████████</span>, блокирующий влияние когнитивных хищников.</p>
+                                    </div>
+                                </div>
+
+                                <div class="kit-item">
+                                    <div class="item-image markers"></div>
+                                    <div class="item-info">
+                                        <h4>Маркеры реальности</h4>
+                                        <p>Набор специальных меток, видимых только в определенном спектре с помощью прилагаемых очков. Не воспринимаются большинством сущностей. Используются для маркировки безопасных путей, оставления сообщений и создания навигационной системы.</p>
+                                    </div>
+                                </div>
+
+                                <div class="kit-item">
+                                    <div class="item-image radio"></div>
+                                    <div class="item-info">
+                                        <h4>Квантовая рация "Эхо"</h4>
+                                        <p>Устройство связи, работающее даже в условиях искаженного пространства-времени. Использует принцип квантовой запутанности для передачи сигнала между измерениями. Позволяет поддерживать контакт с командой ARIPSA на расстоянии до <span class="redacted">████</span> км и через большинство барьеров реальности.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="research" class="inventions">
+                <h2>Исследования и разработки</h2>
+                <div class="inventions-intro">
+                    <p>Научный отдел ARIPSA занимается разработкой технологий для защиты от аномальных явлений, исследования бекрумов и обеспечения выживания в экстремальных условиях. Все технологии основаны на изучении физики аномалий и применении полученных знаний.</p>
+                </div>
+
+                <div class="inventions-grid">
+                    <div class="invention">
+                        <div class="invention-image generator"></div>
+                        <div class="invention-content">
+                            <h3>Магнитный генератор энергии</h3>
+                            <p>Устройство, способное генерировать электроэнергию, используя аномальные магнитные поля бекрумов. В отличие от обычных генераторов, не требует топлива и работает в условиях искаженной физики. Принцип действия основан на <span class="redacted">█████████████████</span>.</p>
+                            <div class="tech-specs">
+                                <span><i class="fas fa-bolt"></i> Мощность: 1.2 кВт</span>
+                                <span><i class="fas fa-weight"></i> Вес: 3.7 кг</span>
+                                <span><i class="fas fa-clock"></i> Автономность: неограниченная в аномальных зонах</span>
+                            </div>
+                            <div class="invention-status">
+                                <span class="status-badge testing">На стадии тестирования</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="invention">
+                        <div class="invention-image stabilizer"></div>
+                        <div class="invention-content">
+                            <h3>Пространственный стабилизатор</h3>
+                            <p>Портативное устройство, создающее поле стабильности в радиусе до 5 метров. Предотвращает случайные переходы между уровнями бекрумов и обеспечивает защиту от пространственных искажений. Использует технологию <span class="redacted">███████████</span> для создания "якоря реальности".</p>
+                            <div class="tech-specs">
+                                <span><i class="fas fa-expand-arrows-alt"></i> Радиус действия: 5 м</span>
+                                <span><i class="fas fa-battery-full"></i> Время работы: 8 часов</span>
+                                <span><i class="fas fa-weight"></i> Вес: 1.2 кг</span>
+                            </div>
+                            <div class="invention-status">
+                                <span class="status-badge prototype">Прототип</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="invention">
+                        <div class="invention-image serum"></div>
+                        <div class="invention-content">
+                            <h3>Сыворотка когнитивной защиты</h3>
+                            <p>Специальный раствор, защищающий мозг от воздействия ментальных аномалий и когнитивных искажений. Сохраняет ясность мышления и способность ориентироваться в пространстве. Содержит синтезированные компоненты, полученные из <span class="redacted">████████████████</span>.</p>
+                            <div class="tech-specs">
+                                <span><i class="fas fa-vial"></i> Состав: запатентован, секретен</span>
+                                <span><i class="fas fa-shield-alt"></i> Защита: 93% эффективность</span>
+                                <span><i class="fas fa-clock"></i> Длительность: 24 часа</span>
+                            </div>
+                            <div class="invention-status">
+                                <span class="status-badge available">Доступно</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="invention">
+                        <div class="invention-image scanner"></div>
+                        <div class="invention-content">
+                            <h3>Сканер аномалий "Око"</h3>
+                            <p>Многофункциональный сканер, способный обнаруживать и классифицировать различные типы аномалий на расстоянии до 50 метров. Предупреждает о потенциальных опасностях и определяет их характеристики. Работает на принципе <span class="redacted">██████████████</span>.</p>
+                            <div class="tech-specs">
+                                <span><i class="fas fa-search"></i> Дальность: 50 м</span>
+                                <span><i class="fas fa-sync"></i> Точность: 87%</span>
+                                <span><i class="fas fa-battery-full"></i> Время работы: 12 часов</span>
+                            </div>
+                            <div class="invention-status">
+                                <span class="status-badge testing">На стадии тестирования</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-text">ARIPSA</span>
+                    <p>Агентство Расследования и Изучения Паранормальных и Сверхъестественных Аномалий</p>
+                    <div class="footer-warning">
+                        ПРЕДУПРЕЖДЕНИЕ: Несанкционированный доступ к материалам ARIPSA является федеральным преступлением согласно Протоколу Безопасности №738-Б. Все действия пользователей регистрируются.
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Документация</h3>
+                        <ul>
+                            <li><a href="#">Классификация аномалий</a></li>
+                            <li><a href="#">Карта бекрумов</a></li>
+                            <li><a href="#">Протоколы безопасности</a></li>
+                            <li><a href="#">Отчеты экспедиций</a></li>
+                            <li><a href="#">Архив инцидентов</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h3>Исследования</h3>
+                        <ul>
+                            <li><a href="#">Текущие проекты</a></li>
+                            <li><a href="#">Научные публикации</a></li>
+                            <li><a href="#">Технические разработки</a></li>
+                            <li><a href="#">Методы сдерживания</a></li>
+                            <li><a href="#">Теория бекрумов</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h3>Ресурсы</h3>
+                        <ul>
+                            <li><a href="#">Руководства по выживанию</a></li>
+                            <li><a href="#">Аварийные комплекты</a></li>
+                            <li><a href="#">Обучающие материалы</a></li>
+                            <li><a href="#">Симуляторы аномалий</a></li>
+                            <li><a href="#">Психологическая помощь</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2025 ARIPSA. Все права защищены.</p>
+                    <p>ARIDOC.SYS v3.7.2 | Уровень допуска: 4</p>
+                </div>
+                
+                <div class="footer-legal">
+                    <a href="#">Протокол безопасности</a>
+                    <a href="#">Политика конфиденциальности</a>
+                    <a href="#">Соглашение о неразглашении</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="emergency-button">SOS</button>
+
+    <div class="warning-popup">
+        <div class="warning-header">
+            <div class="warning-title"><i class="fas fa-exclamation-triangle"></i> ВНИМАНИЕ</div>
+            <div class="warning-close"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="warning-message">
+            Зафиксирована аномальная активность в вашем регионе. Рекомендуется ограничить перемещения и избегать необычных явлений. Исследовательская группа ARIPSA уже направлена для изучения ситуации.
+        </div>
+        <div class="warning-footer">
+            <button class="warning-button">Понятно</button>
+        </div>
+    </div>
+
+    <script>
+        // Show warning popup after 5 seconds
+        setTimeout(function() {
+            document.querySelector('.warning-popup').classList.add('show');
+        }, 5000);
+
+        // Close warning popup
+        document.querySelector('.warning-close').addEventListener('click', function() {
+            document.querySelector('.warning-popup').classList.remove('show');
+        });
+
+        document.querySelector('.warning-button').addEventListener('click', function() {
+            document.querySelector('.warning-popup').classList.remove('show');
+        });
+
+        // Close alert banner
+        document.querySelector('.alert-close').addEventListener('click', function() {
+            document.querySelector('.alert-banner').style.display = 'none';
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('mobile-menu-open');
+        });
+
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons and panes
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+                
+                // Add active class to current button
+                this.classList.add('active');
+                
+                // Show corresponding pane
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Emergency button
+        document.querySelector('.emergency-button').addEventListener('click', function() {
+            alert('ВНИМАНИЕ: Активирован аварийный протокол. Пожалуйста, оставайтесь на месте. Команда ARIPSA уже направлена к вам. Ваши координаты зафиксированы.');
+        });
+
+        // Terminal typing effect
+        const terminalLines = document.querySelectorAll('.terminal-line:not(.visible)');
+        let lineIndex = 0;
+
+        function showNextLine() {
+            if (lineIndex < terminalLines.length) {
+                terminalLines[lineIndex].classList.add('visible');
+                lineIndex++;
+                setTimeout(showNextLine, Math.random() * 100 + 50);
+            }
+        }
+
+        // Start terminal animation after page load
+        window.addEventListener('load', function() {
+            showNextLine();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Random glitches
+        function createRandomGlitch() {
+            const elements = document.querySelectorAll('h1, h2, h3, .document-title, .anomaly-id');
+            const randomElement = elements[Math.floor(Math.random() * elements.length)];
+            
+            if (randomElement) {
+                randomElement.classList.add('glitch');
+                setTimeout(() => {
+                    randomElement.classList.remove('glitch');
+                }, 3000);
+            }
+            
+            // Schedule next glitch
+            setTimeout(createRandomGlitch, Math.random() * 30000 + 20000);
+        }
+
+        // Start random glitches
+        setTimeout(createRandomGlitch, 10000);
+    </script>
+</body>
+</html>
